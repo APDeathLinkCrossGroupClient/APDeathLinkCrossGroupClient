@@ -1,0 +1,129 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgmy0qlqgvro8"]
+
+[ext_resource type="Script" uid="uid://dvd783u1dhqb1" path="res://deathlink_client/dl_config_tab.gd" id="1_buou3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u0btu"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(1, 1, 1, 0.227451)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+
+[node name="Config" type="MarginContainer" node_paths=PackedStringArray("source_container", "dest_container", "count_box", "save_btn", "reset_btn", "err_label")]
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_bottom = 16
+script = ExtResource("1_buou3")
+source_container = NodePath("VBoxContainer/HBoxContainer/PanelContainer/ScrollContainer/Sources/SourceGrid")
+dest_container = NodePath("VBoxContainer/HBoxContainer/PanelContainer2/ScrollContainer/Dests/DestGrid")
+count_box = NodePath("VBoxContainer/HBoxContainer/PanelContainer3/Dests/DeathCount")
+save_btn = NodePath("VBoxContainer/HBoxContainer2/Save")
+reset_btn = NodePath("VBoxContainer/HBoxContainer2/Revert")
+err_label = NodePath("VBoxContainer/ErrLabel")
+metadata/_tab_index = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 32
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_u0btu")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="Sources" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/PanelContainer/ScrollContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/PanelContainer/ScrollContainer/Sources"]
+layout_mode = 2
+text = "Source Groups:"
+
+[node name="SourceGrid" type="GridContainer" parent="VBoxContainer/HBoxContainer/PanelContainer/ScrollContainer/Sources"]
+layout_mode = 2
+columns = 2
+
+[node name="AddSource" type="Button" parent="VBoxContainer/HBoxContainer/PanelContainer/ScrollContainer/Sources"]
+layout_mode = 2
+text = "Add"
+
+[node name="PanelContainer3" type="PanelContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_u0btu")
+
+[node name="Dests" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/PanelContainer3"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/PanelContainer3/Dests"]
+layout_mode = 2
+text = "Req Deaths:"
+
+[node name="DeathCount" type="SpinBox" parent="VBoxContainer/HBoxContainer/PanelContainer3/Dests"]
+layout_mode = 2
+min_value = 1.0
+max_value = 1e+11
+value = 1.0
+
+[node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_u0btu")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/PanelContainer2"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="Dests" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/PanelContainer2/ScrollContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/PanelContainer2/ScrollContainer/Dests"]
+layout_mode = 2
+text = "Dest Groups:"
+
+[node name="DestGrid" type="GridContainer" parent="VBoxContainer/HBoxContainer/PanelContainer2/ScrollContainer/Dests"]
+layout_mode = 2
+columns = 2
+
+[node name="AddDest" type="Button" parent="VBoxContainer/HBoxContainer/PanelContainer2/ScrollContainer/Dests"]
+layout_mode = 2
+text = "Add"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 32
+
+[node name="Save" type="Button" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Save Changes"
+
+[node name="Revert" type="Button" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Revert Changes"
+
+[node name="Delete" type="Button" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Delete Config"
+
+[node name="ErrLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/PanelContainer/ScrollContainer/Sources/AddSource" to="." method="add_source"]
+[connection signal="value_changed" from="VBoxContainer/HBoxContainer/PanelContainer3/Dests/DeathCount" to="." method="change_count" unbinds=1]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/PanelContainer2/ScrollContainer/Dests/AddDest" to="." method="add_dest"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer2/Save" to="." method="save_changes"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer2/Revert" to="." method="reset"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer2/Delete" to="." method="delete_config"]

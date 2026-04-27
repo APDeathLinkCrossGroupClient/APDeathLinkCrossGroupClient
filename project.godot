@@ -10,11 +10,11 @@ config_version=5
 
 [application]
 
-config/name="GodotAP"
-config/description="Archipelago connection handler for Godot.
-See https://github.com/EmilyV99/GodotAP"
-config/version="0.4.1"
-run/main_scene="res://godot_ap/ui/main.tscn"
+config/name="DeathLink Cross-Group Client"
+config/description="Client to handle sending DeathLinks from some groups to other groups, configurably.
+Using https://github.com/EmilyV99/GodotAP"
+config/version="0.0.1"
+run/main_scene="uid://dyoc8qkerq0ir"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 
